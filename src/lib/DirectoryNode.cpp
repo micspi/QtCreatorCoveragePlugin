@@ -10,10 +10,10 @@ DirectoryNode::DirectoryNode(const QString &name, Node *parent) :
 QIcon DirectoryNode::getIcon() const
 {
     const QString &name = getName();
-    if (name == "Headers")
-        return IconDecorator::getIconByName("Dir.Headers");
-    if (name == "Sources")
-        return IconDecorator::getIconByName("Dir.Sources");
+    if (name == QLatin1String("Headers"))
+        return IconDecorator::getIconByName(QLatin1String("Dir.Headers"));
+    if (name == QLatin1String("Sources"))
+        return IconDecorator::getIconByName(QLatin1String("Dir.Sources"));
 
-    return IconDecorator::getIconByName("Dir.Other");
+    return IconDecorator::getIconByName(QLatin1String("Dir.Other"));
 }

@@ -42,7 +42,7 @@ QString Node::getFullAbsoluteName() const
     if (!parent)
         return name;
 
-    return parent->getFullAbsoluteName() + '/' + name;
+    return parent->getFullAbsoluteName() + QLatin1Char('/') + name;
 }
 
 QString Node::getFullName() const
@@ -50,7 +50,7 @@ QString Node::getFullName() const
     if (!parent)
         return name;
 
-    return parent->getFullName() + '/' + name;
+    return parent->getFullName() + QLatin1Char('/') + name;
 }
 
 QString Node::getName() const

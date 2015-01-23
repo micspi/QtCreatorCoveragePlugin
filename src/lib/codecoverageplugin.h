@@ -14,6 +14,8 @@ namespace Internal {
 class CodeCoveragePlugin : public ExtensionSystem::IPlugin
 {
     Q_OBJECT
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QtCreatorPlugin" FILE "CodeCoverage.json")
+
     ActionManager *actionManager;
     StateMachine *stateMachine;
     WizardManager *wizardManager;

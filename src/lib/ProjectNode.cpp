@@ -10,7 +10,7 @@ ProjectNode::ProjectNode(const QString &name, const QString &projectFullName, No
 
 QIcon ProjectNode::getIcon() const
 {
-    return IconDecorator::getIconByName("Dir.Project");
+    return IconDecorator::getIconByName(QLatin1String("Dir.Project"));
 }
 
 QString ProjectNode::getFullAbsoluteName() const

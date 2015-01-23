@@ -66,7 +66,7 @@ HEADERS += codecoverageplugin.h\
     LinePaintHandler.h \
     LineCleaner.h
 
-include(codecoverage_dependencies.pri)
+#include(codecoverage_dependencies.pri)
 
 FORMS +=
 

@@ -15,14 +15,14 @@
 
 ActionManager::ActionManager(QObject *parent) :
     QObject(parent),
-    runAction(new QAction(QIcon(":/icons/images/run.png"), tr("Run tests"), this)),
-    waitAction(new QAction(QIcon(":/icons/images/stop.png"), tr("Stop coverage execution"), this)),
-    renderAction(new QAction(QIcon(":/icons/images/render.png"), tr("Show code coverage"), this))
+    runAction(new QAction(QIcon(QLatin1String(":/icons/images/run.png")), tr("Run tests"), this)),
+    waitAction(new QAction(QIcon(QLatin1String(":/icons/images/stop.png")), tr("Stop coverage execution"), this)),
+    renderAction(new QAction(QIcon(QLatin1String(":/icons/images/render.png")), tr("Show code coverage"), this))
 {
     renderAction->setCheckable(true);
 
     // Add action to menu
-    Core::ActionManager *pluginActionManager = Core::ICore::actionManager();           
+    Core::ActionManager *pluginActionManager = Core::ActionManager::instance();
     Core::Command *runCommand = pluginActionManager->registerAction(runAction, RUN_ACTION_ID, Core::Context(Core::Constants::C_GLOBAL));
     Core::Command *renderCommand = pluginActionManager->registerAction(renderAction, RENDER_ACTION_ID, Core::Context(Core::Constants::C_GLOBAL));
     runCommand->setKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_E);
@@ -35,9 +35,8 @@ ActionManager::ActionManager(QObject *parent) :
     pluginActionManager->actionContainer(Core::Constants::M_TOOLS)->addMenu(menu);
 
     // Add action as icon to left bar
-    Core::ModeManager *modeManager = Core::ModeManager::instance();
-    modeManager->addAction(runAction, RUN_ACTION_PRIORITY);
-    modeManager->addAction(waitAction, WAIT_ACTION_PRIORITY);
+    Core::ModeManager::addAction(runAction, RUN_ACTION_PRIORITY);
+    Core::ModeManager::addAction(waitAction, WAIT_ACTION_PRIORITY);
 }
 
 QAction *ActionManager::getRunAction() const

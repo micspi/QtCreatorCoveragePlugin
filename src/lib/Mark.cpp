@@ -8,7 +8,7 @@ Mark::Mark(const QString &fileName, int lineNumber, int type, MarkManager *manag
     type(type)
 {
     setPriority(TextEditor::ITextMark::NormalPriority);
-    QIcon icon = type != 0 ? QIcon(":/icons/images/plus.png") : QIcon(":/icons/images/minus.png");
+    QIcon icon = type != 0 ? QIcon(QLatin1String(":/icons/images/plus.png")) : QIcon(QLatin1String(":/icons/images/minus.png"));
     setIcon(icon);
 }
 

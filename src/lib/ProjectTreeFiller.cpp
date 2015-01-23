@@ -19,7 +19,7 @@ void ProjectTreeFiller::execute()
     QMutableListIterator<FileCoverageData> it(fileCoverageDataList);
     while (it.hasNext()) {
         FileCoverageData &fileCoverageData = it.next();
-        fileCoverageData.fileName.replace(projectName + '/', "");
+        fileCoverageData.fileName.replace(projectName + QLatin1Char('/'), QLatin1String(""));
         it.setValue(fileCoverageData);
     }
 
@@ -27,13 +27,13 @@ void ProjectTreeFiller::execute()
     foreach (const FileCoverageData &fileCoverageData, fileCoverageDataList)
         fileNames << fileCoverageData.fileName;
 
-    const QString projectShortName = projectName.mid(projectName.lastIndexOf('/') + 1);
+    const QString projectShortName = projectName.mid(projectName.lastIndexOf(QLatin1Char('/')) + 1);
     Node *projectNode = new ProjectNode(projectShortName, projectName, rootNode);
     ProjectTreeCreator projectTreeCreator(fileNames, projectNode);
     projectTreeCreator.execute();
 
     foreach (const FileCoverageData &fileCoverageData, fileCoverageDataList) {
-        Node *leafNode = projectTreeCreator.getLeafNodeFromFullName(fileCoverageData.fileName, '/' + projectShortName);
+        Node *leafNode = projectTreeCreator.getLeafNodeFromFullName(fileCoverageData.fileName, QLatin1Char('/') + projectShortName);
         if (leafNode) {
             FileNode *fileNode = static_cast<FileNode *>(leafNode);
             fileNode->setLineHitList(fileCoverageData.lineHitList);

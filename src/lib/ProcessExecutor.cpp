@@ -22,27 +22,27 @@ void ProcessExecutor::execute()
     using namespace ProjectExplorer;
 
     ProjectExplorerPlugin *projectExplorerPlugin = ProjectExplorerPlugin::instance();
-    Project *project = projectExplorerPlugin->startupProject();
+    Project *project = projectExplorerPlugin->currentProject();
 
     ProjectNode *rootProjectNode = project->rootProjectNode();
     const QString &activeRunConfigurationDir = getRunConfigurationPath(rootProjectNode, project->activeTarget()->activeRunConfiguration());
 
-    const QString &buildDir = activeRunConfigurationDir.mid(0, activeRunConfigurationDir.lastIndexOf('/'));
+    const QString &buildDir = activeRunConfigurationDir.mid(0, activeRunConfigurationDir.lastIndexOf(QLatin1Char('/')));
     const QString &objectFilesDir = getObjectFilesDir(buildDir);
 
     const QString &rootDir = project->projectDirectory();
     QDir dir(rootDir);
-    dir.mkdir("./coverage");
-    const QString outputFileName = rootDir + '/' + "coverage/result.info";
+    dir.mkdir(QLatin1String("./coverage"));
+    const QString outputFileName = rootDir + QLatin1Char('/') + QLatin1String("coverage/result.info");
 
-    const QString program = "lcov";
+    const QString program = QLatin1String("lcov");
     const QStringList arguments = {
-        "-d",
+        QLatin1String("-d"),
         objectFilesDir,
-        "-c",
-        "-o",
+        QLatin1String("-c"),
+        QLatin1String("-o"),
         outputFileName,
-        "-b",
+        QLatin1String("-b"),
         buildDir
     };
 
@@ -86,17 +86,17 @@ QString ProcessExecutor::getRunConfigurationPath(ProjectExplorer::ProjectNode *p
 //#TOTEST:
 QString ProcessExecutor::getObjectFilesDir(const QString &buildDir) const
 {
-    QFile makeFile(buildDir + "/Makefile");
+    QFile makeFile(buildDir + QLatin1String("/Makefile"));
     QTextStream out(&makeFile);
 
     if (makeFile.open(QIODevice::ReadOnly)) {
         while (!out.atEnd()) {
             const QString &line = out.readLine();
 
-            QRegExp rx("OBJECTS_DIR\\s*=\\s*([^\\s]*)$");
+            QRegExp rx(QLatin1String("OBJECTS_DIR\\s*=\\s*([^\\s]*)$"));
             if (rx.indexIn(line) != -1) {
                 const QString &objectsDir = rx.cap(1);
-                return QString("%1/%2").arg(buildDir).arg(objectsDir);
+                return QString(QLatin1String("%1/%2")).arg(buildDir).arg(objectsDir);
             }
         }
     }

@@ -24,7 +24,7 @@ TreeNavigationView::TreeNavigationView(QAbstractItemModel *model, StateMachine *
 
     connect(stateMachine,SIGNAL(stateChanged(PluginState*)),SLOT(setState(PluginState*)));
 
-    waitingMovie->setFileName(":/animation/images/loading.gif");
+    waitingMovie->setFileName(QLatin1String(":/animation/images/loading.gif"));
     animationTimer = new QTimer(this);
     connect(animationTimer,SIGNAL(timeout()),viewport(),SLOT(repaint()));
 }

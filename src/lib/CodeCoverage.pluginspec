@@ -5,7 +5,9 @@
     <description>Put a short description of your plugin here</description>
     <url>http://</url>
     <dependencyList>
-        <dependency name="Core" version="2.5.1"/>
+        <dependency name="Core"/>
+		<dependency name="ProjectExplorer"/>
+		<dependency name="QmakeProjectManager"/>
     </dependencyList>
 </plugin>
 

@@ -21,7 +21,7 @@ TreeCreator::TreeCreator(const QStringList &fileNames, Node *rootNode) :
 void TreeCreator::execute()
 {            
     foreach (const QString &fileName, fileNames) {
-        QStringList nodeNames = fileName.split('/', QString::SkipEmptyParts);
+        QStringList nodeNames = fileName.split(QLatin1Char('/'), QString::SkipEmptyParts);
         const QString &leafName = nodeNames.takeLast();
 
         Node *parentNode = rootNode;

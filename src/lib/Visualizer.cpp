@@ -42,7 +42,7 @@ void Visualizer::refreshMarks()
 
     foreach (Node *leaf, leafs) {
         FileNode *fileNode = static_cast<FileNode *>(leaf);
-        QString fileName = fileNode->getFullAbsoluteName().replace(QRegExp("(Sources|Headers)/"), "");
+        QString fileName = fileNode->getFullAbsoluteName().replace(QRegExp(QLatin1String("(Sources|Headers)/")), QLatin1String(""));
         const LineHitList &lineHitList = fileNode->getLineHitList();
 
         foreach (const LineHit &lineHit, lineHitList) {
@@ -98,7 +98,7 @@ void Visualizer::repaintMarks(bool isRender)
 {
     if (!isRender) {
         markManager->removeAllMarks();
-        markManager->addMark("", 0, 0);
+        markManager->addMark(QLatin1String(""), 0, 0);
     } else {
         refreshMarks();
     }
@@ -118,14 +118,14 @@ QMap<int, int> Visualizer::getLineCoverage() const
     using namespace TextEditor;
     QMap<int, int> lineCoverage;
 
-    ITextEditor *textEditor = currentTextEditor();
-    if (textEditor) {
-        TextMarks marks = textEditor->markableInterface()->marks();
-        foreach (ITextMark *mark, marks) {
-            if (Mark *trueMark = dynamic_cast<Mark *>(mark))
-                lineCoverage.insert(trueMark->lineNumber(), trueMark->getType());
+    if (ITextEditor *textEditor = currentTextEditor())
+        if (ITextEditorDocument *textDocument = textEditor->textDocument()) {
+            TextMarks marks = textDocument->markableInterface()->marks();
+            foreach (ITextMark *mark, marks) {
+                if (Mark *trueMark = dynamic_cast<Mark *>(mark))
+                    lineCoverage.insert(trueMark->lineNumber(), trueMark->getType());
+            }
         }
-    }
 
     return lineCoverage;
 }

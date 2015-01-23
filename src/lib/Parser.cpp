@@ -27,8 +27,8 @@ FileCoverageDataList Parser::getFileCoverageDataList() const
 
 QString Parser::getFileCoverageDataContentByName(const QString &fileName) const
 {
-    int beginIndex = content.indexOf(QString("SF:%1").arg(fileName));
-    int endIndex = content.indexOf(QString("end_of_record"), beginIndex);
+    int beginIndex = content.indexOf(QString(QLatin1String("SF:%1")).arg(fileName));
+    int endIndex = content.indexOf(QString(QLatin1String("end_of_record")), beginIndex);
 
     if (beginIndex != INDEX_NOT_FOUND && endIndex != INDEX_NOT_FOUND)
         return content.mid(beginIndex, endIndex - beginIndex);
@@ -42,14 +42,14 @@ FileCoverageData Parser::parseFileCoverageDataContent(const QString &fileName, c
         return FileCoverageData();
 
     FileCoverageData fileCoverageData(fileName);
-    parseLineHit(&fileCoverageData.lineHitList, fileCoverageDataContent.split('\n'));
+    parseLineHit(&fileCoverageData.lineHitList, fileCoverageDataContent.split(QLatin1Char('\n')));
 
     return fileCoverageData;
 }
 
 void Parser::parseLineHit(LineHitList *lineHitList, const QStringList &fileCoverageDataStringList) const
 {
-    const QRegExp rx("^DA:(\\d+),(\\d+)");
+    const QRegExp rx(QLatin1String("^DA:(\\d+),(\\d+)"));
     foreach (const QString &fileCoverageDataString, fileCoverageDataStringList) {
         int pos = rx.indexIn(fileCoverageDataString);
         if (pos > -1) {

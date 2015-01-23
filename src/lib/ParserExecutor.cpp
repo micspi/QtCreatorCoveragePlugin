@@ -18,10 +18,10 @@ void ParserExecutor::execute()
 {
     using namespace ProjectExplorer;
 
-    Project *project = ProjectExplorerPlugin::instance()->startupProject();
+    Project *project = ProjectExplorerPlugin::instance()->currentProject();
     const QStringList &fileNames = project->files(Project::ExcludeGeneratedFiles);
-    const QRegExp rx(".*\\.(h|cpp)");
-    const QString resultFileName = QString("%1/coverage/result.info").arg(project->projectDirectory());
+    const QRegExp rx(QLatin1String(".*\\.(h|cpp)"));
+    const QString resultFileName = QString(QLatin1String("%1/coverage/result.info")).arg(project->projectDirectory());
     QFile file(resultFileName);
     QTextStream stream(&file);
     if (!file.open(QIODevice::ReadOnly)) {

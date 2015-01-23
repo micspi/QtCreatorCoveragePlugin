@@ -14,7 +14,7 @@ FileNode::FileNode(const QString &name, Node *parent) :
 QVariant FileNode::getData() const
 {
     if (lineHitList.isEmpty())
-        return "-";
+        return QLatin1String("-");
 
     int linesCovered = 0;
     foreach (const LineHit &lineHit, lineHitList)
@@ -28,10 +28,10 @@ QVariant FileNode::getData() const
 QIcon FileNode::getIcon() const
 {
     const QString &fullName = getFullName();
-    if (fullName.contains("/Headers/"))
-        return IconDecorator::getIconByName("File.Headers");
-    if (fullName.contains("/Sources/"))
-        return IconDecorator::getIconByName("File.Sources");
+    if (fullName.contains(QLatin1String("/Headers/")))
+        return IconDecorator::getIconByName(QLatin1String("File.Headers"));
+    if (fullName.contains(QLatin1String("/Sources/")))
+        return IconDecorator::getIconByName(QLatin1String("File.Sources"));
 
     return Node::getIcon();
 }

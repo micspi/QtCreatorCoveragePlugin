@@ -18,18 +18,18 @@ void CleanExecutor::execute()
     using namespace ProjectExplorer;
 
     ProjectExplorerPlugin *projectExplorerPlugin = ProjectExplorerPlugin::instance();
-    Project *project = projectExplorerPlugin->startupProject();
+    Project *project = projectExplorerPlugin->currentProject();
 
     ProjectNode *rootProjectNode = project->rootProjectNode();
     const QString &activeRunConfigurationDir = getRunConfigurationPath(rootProjectNode, project->activeTarget()->activeRunConfiguration());
 
-    const QString &buildDir = activeRunConfigurationDir.mid(0, activeRunConfigurationDir.lastIndexOf('/'));
+    const QString &buildDir = activeRunConfigurationDir.mid(0, activeRunConfigurationDir.lastIndexOf(QLatin1Char('/')));
     const QString &objectFilesDir = getObjectFilesDir(buildDir);
 
-    const QString program = "lcov";
+    const QString program = QLatin1String("lcov");
     const QStringList arguments = {
-        "-z",
-        "-d",
+        QLatin1String("-z"),
+        QLatin1String("-d"),
         objectFilesDir
     };
 
