@@ -10,9 +10,5 @@ class TreeWidgetFactory : public Core::INavigationWidgetFactory
     StateMachine *stateMachine;
 public:    
     TreeWidgetFactory(Model *model, StateMachine *stateMachine);
-
-    QString displayName() const;
-    int priority() const;
-    Core::Id id() const;
     Core::NavigationView createWidget();
 };

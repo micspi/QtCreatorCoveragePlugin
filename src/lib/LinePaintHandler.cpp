@@ -2,8 +2,9 @@
 
 #include <QPlainTextEdit>
 #include <QTextCursor>
+#include <texteditor/texteditor.h>
 
-LinePaintHandler::LinePaintHandler(QPlainTextEdit *textEdit, const QMap<int, int> &lineCoverage) :
+LinePaintHandler::LinePaintHandler(TextEditor::TextEditorWidget *textEdit, const QMap<int, int> &lineCoverage) :
     textEdit(textEdit),
     lineCoverage(lineCoverage)
 {
@@ -41,5 +42,6 @@ void LinePaintHandler::render()
         prevPos = pos;
     }
 
-    textEdit->setExtraSelections(selections);
+    static const Core::Id CODECOVERAGE_SELECTION_ID("code-coverage");
+    textEdit->setExtraSelections(CODECOVERAGE_SELECTION_ID, selections);
 }

@@ -22,5 +22,4 @@ void MarkManager::addMark(const QString &fileName, int lineNumber, int type)
 {
     Mark *mark = new Mark(fileName, lineNumber, type, this);
     marks.insert(fileName, mark);
-    mark->init();
 }

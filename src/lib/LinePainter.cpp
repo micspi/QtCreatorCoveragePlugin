@@ -1,6 +1,6 @@
 #include "LinePainter.h"
 
-LinePainter::LinePainter(QPlainTextEdit *textEdit, const QMap<int, int> &lineCoverage) :
+LinePainter::LinePainter(TextEditor::TextEditorWidget *textEdit, const QMap<int, int> &lineCoverage) :
     LinePaintHandler(textEdit, lineCoverage)
 {
 }

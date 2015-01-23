@@ -109,5 +109,6 @@ QVariant Model::data(const QModelIndex &index, int role) const
 
 void Model::update()
 {
-    reset();
+    beginResetModel();
+    endResetModel();
 }

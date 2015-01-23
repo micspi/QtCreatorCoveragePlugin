@@ -1,7 +1,7 @@
 #include "LineCleaner.h"
 
-LineCleaner::LineCleaner(QPlainTextEdit *textEdit, const QMap<int, int> &lineCoverage) :
-    LinePaintHandler(textEdit, lineCoverage)
+LineCleaner::LineCleaner(TextEditor::TextEditorWidget *textEdit) :
+    LinePaintHandler(textEdit, QMap<int, int>())
 {
 }
 

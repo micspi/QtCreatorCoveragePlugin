@@ -91,6 +91,3 @@ ExtensionSystem::IPlugin::ShutdownFlag CodeCoveragePlugin::aboutToShutdown()
      */
     return SynchronousShutdown;
 }
-
-Q_EXPORT_PLUGIN2(CodeCoverage, CodeCoveragePlugin)
-

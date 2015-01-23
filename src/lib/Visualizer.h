@@ -4,7 +4,10 @@
 #include <QMap>
 
 namespace Core {class IEditor;}
-namespace TextEditor {class ITextEditor;}
+namespace TextEditor {
+class BaseTextEditor;
+class TextEditorWidget;
+}
 
 class ProjectTreeManager;
 class MarkManager;
@@ -24,14 +27,14 @@ public Q_SLOTS:
     void renderCoverage();
 
 private Q_SLOTS:
-    void renderCoverage(QPlainTextEdit *plainTextEdit) const;
-    void clearCoverage(QPlainTextEdit *plainTextEdit) const;
+    void renderCoverage(TextEditor::TextEditorWidget *textEdit) const;
+    void clearCoverage(TextEditor::TextEditorWidget *textEdit) const;
     void bindEditorToPainting(Core::IEditor *editor);
 
     void repaintMarks(bool isRender);
 
 private:
-    TextEditor::ITextEditor *currentTextEditor() const;
+    TextEditor::BaseTextEditor *currentTextEditor() const;
     QMap<int, int> getLineCoverage() const;
     
 };

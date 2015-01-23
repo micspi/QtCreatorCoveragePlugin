@@ -13,7 +13,7 @@ IDE_SOURCE_TREE = $$QTC_SOURCE
 IDE_BUILD_TREE = $$QTC_BUILD
 PROVIDER = VendorName
 
-QTC_PLUGIN_DEPENDS += coreplugin projectexplorer qmakeprojectmanager
+QTC_PLUGIN_DEPENDS += coreplugin texteditor projectexplorer qmakeprojectmanager
 
 # CodeCoverage files
 include($$QTC_SOURCE/src/qtcreatorplugin.pri)

@@ -3,11 +3,11 @@
 #include "MarkManager.h"
 
 Mark::Mark(const QString &fileName, int lineNumber, int type, MarkManager *manager) :
-    BaseTextMark(fileName, lineNumber),
+    TextMark(fileName, lineNumber),
     manager(manager),
     type(type)
 {
-    setPriority(TextEditor::ITextMark::NormalPriority);
+    setPriority(TextEditor::TextMark::NormalPriority);
     QIcon icon = type != 0 ? QIcon(QLatin1String(":/icons/images/plus.png")) : QIcon(QLatin1String(":/icons/images/minus.png"));
     setIcon(icon);
 }
@@ -19,20 +19,20 @@ int Mark::getType() const
 
 void Mark::updateLineNumber(int lineNumber)
 {
-    BaseTextMark::updateLineNumber(lineNumber);
+    TextMark::updateLineNumber(lineNumber);
 }
 
 void Mark::updateBlock(const QTextBlock &block)
 {
-    BaseTextMark::updateBlock(block);
+    TextMark::updateBlock(block);
 }
 
 void Mark::updateFileName(const QString &fileName)
 {
-    BaseTextMark::updateFileName(fileName);
+    TextMark::updateFileName(fileName);
 }
 
 void Mark::removedFromEditor()
 {
-    BaseTextMark::removedFromEditor();
+    TextMark::removedFromEditor();
 }

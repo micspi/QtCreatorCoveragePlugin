@@ -16,7 +16,7 @@ TreeNavigationView::TreeNavigationView(QAbstractItemModel *model, StateMachine *
     setModel(model);
     connect(model,SIGNAL(modelReset()),SLOT(expandAll()));
     header()->resizeSection(0, 200);
-    header()->setResizeMode(1, QHeaderView::ResizeToContents);
+    header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
     setFrameStyle(QFrame::Plain);
     setFrameShape(QFrame::NoFrame);

@@ -1,0 +1,11 @@
+{
+	\"Name\" : \"CodeCoverage\",
+	\"Version\" : \"0.1.0\",
+	\"CompatVersion\" : \"0.1.0\",
+    \"Vendor\" : \"Evgeny Safronov\",
+    \"Copyright\" : \"(C) Evgeny Safronov\",
+    \"License\" : \"LGPL\",
+    \"Description\" : \"Put a short description of your plugin here\",
+    \"Url\" : \"http://\",
+	$$dependencyList
+}

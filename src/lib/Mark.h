@@ -1,9 +1,9 @@
 #pragma once
 
-#include <texteditor/basetextmark.h>
+#include <texteditor/textmark.h>
 
 class MarkManager;
-class Mark : public TextEditor::BaseTextMark
+class Mark : public TextEditor::TextMark
 {
     MarkManager *manager;
     int type;

@@ -10,7 +10,7 @@
 
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
-#include <texteditor/itexteditor.h>
+#include <texteditor/texteditor.h>
 
 #include <QPlainTextEdit>
 #include <QScrollBar>
@@ -60,26 +60,26 @@ void Visualizer::renderCoverage()
     if (!currentEditor)
         return;
 
-    QPlainTextEdit *plainTextEdit = qobject_cast<QPlainTextEdit *>(currentEditor->widget());
-    if (!plainTextEdit)
+    TextEditor::TextEditorWidget *textEdit = qobject_cast<TextEditor::TextEditorWidget *>(currentEditor->widget());
+    if (!textEdit)
         return;
 
     if (renderAction->isChecked()) {
-        renderCoverage(plainTextEdit);
+        renderCoverage(textEdit);
     } else {
-        clearCoverage(plainTextEdit);
+        clearCoverage(textEdit);
     }
 }
 
-void Visualizer::renderCoverage(QPlainTextEdit *plainTextEdit) const
+void Visualizer::renderCoverage(TextEditor::TextEditorWidget *textEdit) const
 {
-    LinePainter painter(plainTextEdit, getLineCoverage());
+    LinePainter painter(textEdit, getLineCoverage());
     painter.render();
 }
 
-void Visualizer::clearCoverage(QPlainTextEdit *plainTextEdit) const
+void Visualizer::clearCoverage(TextEditor::TextEditorWidget *textEdit) const
 {
-    LineCleaner cleaner(plainTextEdit, getLineCoverage());
+    LineCleaner cleaner(textEdit);
     cleaner.render();
 }
 
@@ -98,19 +98,18 @@ void Visualizer::repaintMarks(bool isRender)
 {
     if (!isRender) {
         markManager->removeAllMarks();
-        markManager->addMark(QLatin1String(""), 0, 0);
     } else {
         refreshMarks();
     }
 }
 
-TextEditor::ITextEditor *Visualizer::currentTextEditor() const
+TextEditor::BaseTextEditor *Visualizer::currentTextEditor() const
 {
     Core::EditorManager *em = Core::EditorManager::instance();
     Core::IEditor *currEditor = em->currentEditor();
     if (!currEditor)
         return 0;
-    return qobject_cast<TextEditor::ITextEditor *>(currEditor);
+    return qobject_cast<TextEditor::BaseTextEditor *>(currEditor);
 }
 
 QMap<int, int> Visualizer::getLineCoverage() const
@@ -118,10 +117,10 @@ QMap<int, int> Visualizer::getLineCoverage() const
     using namespace TextEditor;
     QMap<int, int> lineCoverage;
 
-    if (ITextEditor *textEditor = currentTextEditor())
-        if (ITextEditorDocument *textDocument = textEditor->textDocument()) {
-            TextMarks marks = textDocument->markableInterface()->marks();
-            foreach (ITextMark *mark, marks) {
+    if (BaseTextEditor *textEditor = currentTextEditor())
+        if (TextDocument *textDocument = textEditor->textDocument()) {
+            TextMarks marks = textDocument->marks();
+            foreach (TextMark *mark, marks) {
                 if (Mark *trueMark = dynamic_cast<Mark *>(mark))
                     lineCoverage.insert(trueMark->lineNumber(), trueMark->getType());
             }

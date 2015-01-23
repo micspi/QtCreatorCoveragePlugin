@@ -7,21 +7,9 @@ TreeWidgetFactory::TreeWidgetFactory(Model *model, StateMachine *stateMachine) :
     model(model),
     stateMachine(stateMachine)
 {
-}
-
-QString TreeWidgetFactory::displayName() const
-{
-    return tr("Coverage");
-}
-
-int TreeWidgetFactory::priority() const
-{
-    return 110;
-}
-
-Core::Id TreeWidgetFactory::id() const
-{
-    return Core::Id("Coverage");
+    setDisplayName(tr("Coverage"));
+    setPriority(110);
+    setId(Core::Id("Coverage"));
 }
 
 Core::NavigationView TreeWidgetFactory::createWidget()
