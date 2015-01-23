@@ -30,7 +30,7 @@ void ProcessExecutor::execute()
     const QString &buildDir = activeRunConfigurationDir.mid(0, activeRunConfigurationDir.lastIndexOf(QLatin1Char('/')));
     const QString &objectFilesDir = getObjectFilesDir(buildDir);
 
-    const QString &rootDir = project->projectDirectory();
+    const QString &rootDir = project->projectDirectory().toString();
     QDir dir(rootDir);
     dir.mkdir(QLatin1String("./coverage"));
     const QString outputFileName = rootDir + QLatin1Char('/') + QLatin1String("coverage/result.info");
@@ -71,7 +71,7 @@ QString ProcessExecutor::getRunConfigurationPath(ProjectExplorer::ProjectNode *p
     using namespace ProjectExplorer;
 
     foreach (ProjectNode *projectNode, parent->subProjectNodes()) {
-        foreach (RunConfiguration *runConfiguration, projectNode->runConfigurationsFor(projectNode))
+        foreach (RunConfiguration *runConfiguration, projectNode->runConfigurations())
             if (runConfiguration == activeRunConfiguration)
                 return projectNode->path();
 

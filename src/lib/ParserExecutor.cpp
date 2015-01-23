@@ -21,7 +21,7 @@ void ParserExecutor::execute()
     Project *project = ProjectExplorerPlugin::instance()->currentProject();
     const QStringList &fileNames = project->files(Project::ExcludeGeneratedFiles);
     const QRegExp rx(QLatin1String(".*\\.(h|cpp)"));
-    const QString resultFileName = QString(QLatin1String("%1/coverage/result.info")).arg(project->projectDirectory());
+    const QString resultFileName = QString(QLatin1String("%1/coverage/result.info")).arg(project->projectDirectory().toString());
     QFile file(resultFileName);
     QTextStream stream(&file);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -33,6 +33,6 @@ void ParserExecutor::execute()
     Parser parser(fileNames.filter(rx), content);
     parser.execute();
 
-    projectTreeManager->addProject(project->projectDirectory(), parser.getFileCoverageDataList());
+    projectTreeManager->addProject(project->projectDirectory().toString(), parser.getFileCoverageDataList());
     emit finished();
 }
