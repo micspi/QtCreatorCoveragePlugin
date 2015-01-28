@@ -26,7 +26,7 @@ Visualizer::Visualizer(ProjectTreeManager *projectTreeManager, QAction *renderAc
     using namespace Core;
     EditorManager *editorManager = EditorManager::instance();
 
-    connect(editorManager,SIGNAL(currentEditorChanged(Core::IEditor*)),SLOT(renderCoverage()),Qt::QueuedConnection);
+    connect(editorManager,SIGNAL(currentEditorChanged(Core::IEditor*)),SLOT(repaintMarks()),Qt::QueuedConnection);
     connect(editorManager,SIGNAL(currentEditorChanged(Core::IEditor*)),SLOT(bindEditorToPainting(Core::IEditor*)));
 
     connect(renderAction,SIGNAL(triggered(bool)),SLOT(repaintMarks()));
@@ -41,16 +41,18 @@ void Visualizer::refreshMarks()
     if (!rootNode)
         return;
 
-    QList<Node *> leafs = rootNode->getLeafs();
-    foreach (Node *leaf, leafs)
-        if (FileNode *fileNode = dynamic_cast<FileNode *>(leaf)) {
-            QString fileName = fileNode->getFullAbsoluteName();
-            const LineHitList &lineHitList = fileNode->getLineHitList();
+    using namespace Core;
+    foreach (IEditor * editor, EditorManager::visibleEditors()) {
+        const QString fileName = editor->document()->filePath();
+        QList<Node *> leafs = rootNode->findLeafs(fileName.split(QLatin1Char('/')).last());
+        foreach (Node *leaf, leafs)
+            if (FileNode *fileNode = dynamic_cast<FileNode *>(leaf))
+                if (fileNode->getFullAbsoluteName() == fileName) {
+                    foreach (const LineHit &lineHit, fileNode->getLineHitList())
+                        markManager->addMark(fileName, lineHit.pos, lineHit.hit);
+                }
+    }
 
-            foreach (const LineHit &lineHit, lineHitList) {
-                markManager->addMark(fileName, lineHit.pos, lineHit.hit);
-            }
-        }
 }
 
 void Visualizer::renderCoverage()
