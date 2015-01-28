@@ -29,8 +29,8 @@ Visualizer::Visualizer(ProjectTreeManager *projectTreeManager, QAction *renderAc
     connect(editorManager,SIGNAL(currentEditorChanged(Core::IEditor*)),SLOT(renderCoverage()),Qt::QueuedConnection);
     connect(editorManager,SIGNAL(currentEditorChanged(Core::IEditor*)),SLOT(bindEditorToPainting(Core::IEditor*)));
 
-    connect(renderAction,SIGNAL(triggered(bool)),SLOT(renderCoverage()));
-    connect(renderAction,SIGNAL(triggered(bool)),SLOT(repaintMarks(bool)));
+    connect(renderAction,SIGNAL(triggered(bool)),SLOT(repaintMarks()));
+    connect(projectTreeManager,SIGNAL(changed()),SLOT(repaintMarks()));
 }
 
 void Visualizer::refreshMarks()
@@ -38,17 +38,19 @@ void Visualizer::refreshMarks()
     markManager->removeAllMarks();
 
     Node *rootNode = projectTreeManager->getRootNode();
+    if (!rootNode)
+        return;
+
     QList<Node *> leafs = rootNode->getLeafs();
+    foreach (Node *leaf, leafs)
+        if (FileNode *fileNode = dynamic_cast<FileNode *>(leaf)) {
+            QString fileName = fileNode->getFullAbsoluteName();
+            const LineHitList &lineHitList = fileNode->getLineHitList();
 
-    foreach (Node *leaf, leafs) {
-        FileNode *fileNode = static_cast<FileNode *>(leaf);
-        QString fileName = fileNode->getFullAbsoluteName();
-        const LineHitList &lineHitList = fileNode->getLineHitList();
-
-        foreach (const LineHit &lineHit, lineHitList) {
-            markManager->addMark(fileName, lineHit.pos, lineHit.hit);
+            foreach (const LineHit &lineHit, lineHitList) {
+                markManager->addMark(fileName, lineHit.pos, lineHit.hit);
+            }
         }
-    }
 }
 
 void Visualizer::renderCoverage()
@@ -94,13 +96,15 @@ void Visualizer::bindEditorToPainting(Core::IEditor *editor)
     }
 }
 
-void Visualizer::repaintMarks(bool isRender)
+void Visualizer::repaintMarks()
 {
-    if (!isRender) {
+    if (!renderAction->isChecked()) {
         markManager->removeAllMarks();
     } else {
         refreshMarks();
     }
+
+    renderCoverage();
 }
 
 TextEditor::BaseTextEditor *Visualizer::currentTextEditor() const

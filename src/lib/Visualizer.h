@@ -31,7 +31,7 @@ private Q_SLOTS:
     void clearCoverage(TextEditor::TextEditorWidget *textEdit) const;
     void bindEditorToPainting(Core::IEditor *editor);
 
-    void repaintMarks(bool isRender);
+    void repaintMarks();
 
 private:
     TextEditor::BaseTextEditor *currentTextEditor() const;
