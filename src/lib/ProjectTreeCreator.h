@@ -17,10 +17,4 @@ public:
 
     Node *getRootNode() const;
     Node *getLeafNodeFromFullName(const QString &fullName, const QString &prefix = QString()) const;
-
-private:
-    QString getFileNameWithProjectSpecialDirectory(const QString &fileName) const;
-    QStringList getFileNamesWithProjectSpecialDirectory() const;
-
-    static QMultiHash<QString, QString> SpecialDirectoryTable();
 };

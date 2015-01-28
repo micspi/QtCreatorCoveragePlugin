@@ -42,7 +42,7 @@ void Visualizer::refreshMarks()
 
     foreach (Node *leaf, leafs) {
         FileNode *fileNode = static_cast<FileNode *>(leaf);
-        QString fileName = fileNode->getFullAbsoluteName().replace(QRegExp(QLatin1String("(Sources|Headers)/")), QLatin1String(""));
+        QString fileName = fileNode->getFullAbsoluteName();
         const LineHitList &lineHitList = fileNode->getLineHitList();
 
         foreach (const LineHit &lineHit, lineHitList) {
