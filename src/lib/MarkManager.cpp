@@ -20,6 +20,6 @@ void MarkManager::removeAllMarks()
 
 void MarkManager::addMark(const QString &fileName, int lineNumber, int type)
 {
-    Mark *mark = new Mark(fileName, lineNumber, type, this);
+    Mark *mark = new Mark(fileName, lineNumber, type);
     marks.insert(fileName, mark);
 }

@@ -2,9 +2,8 @@
 
 #include "MarkManager.h"
 
-Mark::Mark(const QString &fileName, int lineNumber, int type, MarkManager *manager) :
+Mark::Mark(const QString &fileName, int lineNumber, int type) :
     TextMark(fileName, lineNumber),
-    manager(manager),
     type(type)
 {
     setPriority(TextEditor::TextMark::NormalPriority);

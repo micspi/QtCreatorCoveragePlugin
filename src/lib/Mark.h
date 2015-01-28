@@ -5,10 +5,9 @@
 class MarkManager;
 class Mark : public TextEditor::TextMark
 {
-    MarkManager *manager;
     int type;
 public:
-    Mark(const QString &fileName, int lineNumber, int type, MarkManager *manager);
+    Mark(const QString &fileName, int lineNumber, int type);
 
     int getType() const;
 
