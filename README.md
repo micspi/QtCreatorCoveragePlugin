@@ -29,3 +29,8 @@ LIBS += -lgcov
 QMAKE_CXXFLAGS += -fprofile-arcs -ftest-coverage
 ```
 9. Compile and run test subproject. After that, activate colorizing through `Tools/CodeCoverage/Show code coverage` or type `Ctrl+H`
+
+## AUTHORS:
+ - [3Hren](https://github.com/3Hren)
+ - [Typz](https://github.com/Typz)
+ - [uglide](https://github.com/uglide)
