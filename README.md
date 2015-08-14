@@ -20,7 +20,7 @@ qmake -r
 make
 ```
 4. Install `lcov`. If you use deb-like system, type `sudo apt-get install lcov`
-5. After that, run QtCreator from `QT_CREATOR_PATH/bin/qtcreator`
+5. After that, run QtCreator
 6. There must be new green button at the left panel. Don't click on it yet.
 7. (Optional, but recommended) Read gcov and/or lcov start guide.
 8. Create your test subproject. Add compile flags to it:
