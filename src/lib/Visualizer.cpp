@@ -11,9 +11,11 @@
 #include <coreplugin/editormanager/editormanager.h>
 #include <coreplugin/editormanager/ieditor.h>
 #include <texteditor/texteditor.h>
+#include <texteditor/textdocument.h>
 
 #include <QPlainTextEdit>
 #include <QScrollBar>
+#include <QAction>
 
 #include <QDebug>
 
@@ -29,8 +31,8 @@ Visualizer::Visualizer(ProjectTreeManager *projectTreeManager, QAction *renderAc
     connect(editorManager,SIGNAL(currentEditorChanged(Core::IEditor*)),SLOT(repaintMarks()),Qt::QueuedConnection);
     connect(editorManager,SIGNAL(currentEditorChanged(Core::IEditor*)),SLOT(bindEditorToPainting(Core::IEditor*)));
 
-    connect(renderAction,SIGNAL(triggered(bool)),SLOT(repaintMarks()));
-    connect(projectTreeManager,SIGNAL(changed()),SLOT(repaintMarks()));
+    QObject::connect((QObject*)renderAction,SIGNAL(triggered(bool)),this, SLOT(repaintMarks()));
+    QObject::connect(projectTreeManager,SIGNAL(changed()),this, SLOT(repaintMarks()));
 }
 
 void Visualizer::refreshMarks()
@@ -43,7 +45,7 @@ void Visualizer::refreshMarks()
 
     using namespace Core;
     foreach (IEditor * editor, EditorManager::visibleEditors()) {
-        const QString fileName = editor->document()->filePath();
+        const QString fileName = editor->document()->filePath().fileName();
         QList<Node *> leafs = rootNode->findLeafs(fileName.split(QLatin1Char('/')).last());
         foreach (Node *leaf, leafs)
             if (FileNode *fileNode = dynamic_cast<FileNode *>(leaf))

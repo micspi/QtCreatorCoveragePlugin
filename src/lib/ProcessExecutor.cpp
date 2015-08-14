@@ -1,6 +1,7 @@
 #include "ProcessExecutor.h"
 
 #include <projectexplorer/projectexplorer.h>
+#include <projectexplorer/projecttree.h>
 #include <projectexplorer/project.h>
 #include <projectexplorer/target.h>
 #include <projectexplorer/projectnodes.h>
@@ -21,8 +22,7 @@ void ProcessExecutor::execute()
 {
     using namespace ProjectExplorer;
 
-    ProjectExplorerPlugin *projectExplorerPlugin = ProjectExplorerPlugin::instance();
-    Project *project = projectExplorerPlugin->currentProject();
+    Project *project = ProjectTree::currentProject();
 
     const QString &buildDir = project->activeTarget()->activeBuildConfiguration()->buildDirectory().toString();
     const QString &objectFilesDir = getObjectFilesDir(buildDir);
@@ -70,7 +70,7 @@ QString ProcessExecutor::getRunConfigurationPath(ProjectExplorer::ProjectNode *p
     foreach (ProjectNode *projectNode, parent->subProjectNodes()) {
         foreach (RunConfiguration *runConfiguration, projectNode->runConfigurations())
             if (runConfiguration == activeRunConfiguration)
-                return projectNode->path();
+                return projectNode->path().fileName();
 
         const QString &runConfigurationPath = getRunConfigurationPath(projectNode, activeRunConfiguration);
         if (!runConfigurationPath.isEmpty())

@@ -1,5 +1,6 @@
 #include "ProjectExecutor.h"
 
+#include <projectexplorer/projecttree.h>
 #include <projectexplorer/projectexplorer.h>
 #include <projectexplorer/project.h>
 #include <projectexplorer/target.h>
@@ -23,7 +24,7 @@ void ProjectExecutor::execute()
 {
     using namespace ProjectExplorer;
     ProjectExplorerPlugin *projectExplorerPlugin = ProjectExplorerPlugin::instance();
-    Project *startUpProject = projectExplorerPlugin->currentProject();
+    Project *startUpProject = ProjectTree::currentProject();
     Q_ASSERT(startUpProject);
 
     projectExplorerPlugin->runProject(startUpProject, NormalRunMode);
