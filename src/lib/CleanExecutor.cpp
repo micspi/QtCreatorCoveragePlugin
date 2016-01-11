@@ -7,8 +7,6 @@
 #include <projectexplorer/projectnodes.h>
 #include <projectexplorer/buildconfiguration.h>
 
-#include <QDebug>
-
 CleanExecutor::CleanExecutor(QObject *parent) :
     ProcessExecutor(parent)
 {

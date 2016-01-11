@@ -30,7 +30,6 @@ void ParserExecutor::execute()
     }
 
     const QString &content = stream.readAll();
-
     Parser parser(fileNames.filter(rx), content);
     parser.execute();
 

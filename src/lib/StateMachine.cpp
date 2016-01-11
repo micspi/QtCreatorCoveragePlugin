@@ -69,7 +69,7 @@ void StateMachine::updateActionsAvailability()
     using namespace ProjectExplorer;
     ProjectExplorerPlugin *projectExplorerPlugin = ProjectExplorerPlugin::instance();
     Project *project = ProjectTree::currentProject();
-    const bool isProjectCanRun = projectExplorerPlugin->canRun(project, NormalRunMode);
+    const bool isProjectCanRun = projectExplorerPlugin->canRun(project, ProjectExplorer::Constants::NORMAL_RUN_MODE);
 
     currentState->updateActionsAvailability(isProjectCanRun);
 }

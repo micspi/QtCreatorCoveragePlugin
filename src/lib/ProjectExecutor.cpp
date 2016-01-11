@@ -9,8 +9,6 @@
 #include <projectexplorer/projectnodes.h>
 #include <projectexplorer/buildmanager.h>
 
-#include <QDebug>
-
 ProjectExecutor::ProjectExecutor(QObject *parent) :
     Executor(parent)
 {
@@ -27,7 +25,7 @@ void ProjectExecutor::execute()
     Project *startUpProject = ProjectTree::currentProject();
     Q_ASSERT(startUpProject);
 
-    projectExplorerPlugin->runProject(startUpProject, NormalRunMode);
+    projectExplorerPlugin->runProject(startUpProject, ProjectExplorer::Constants::NORMAL_RUN_MODE);
 }
 
 void ProjectExecutor::buildingFinished(bool successfully)

@@ -3,7 +3,7 @@
 #include "MarkManager.h"
 
 Mark::Mark(const QString &fileName, int lineNumber, int type) :
-    TextMark(fileName, lineNumber),
+    TextMark(fileName, lineNumber, 0),
     type(type)
 {
     setPriority(TextEditor::TextMark::NormalPriority);

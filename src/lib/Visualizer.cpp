@@ -17,8 +17,6 @@
 #include <QScrollBar>
 #include <QAction>
 
-#include <QDebug>
-
 Visualizer::Visualizer(ProjectTreeManager *projectTreeManager, QAction *renderAction, QObject *parent) :
     QObject(parent),
     projectTreeManager(projectTreeManager),

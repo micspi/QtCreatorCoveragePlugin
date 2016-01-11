@@ -8,6 +8,7 @@
 #include <projectexplorer/buildconfiguration.h>
 
 #include <QDebug>
+#include <QString>
 
 ProcessExecutor::ProcessExecutor(QObject *parent) :
     Executor(parent),
@@ -21,9 +22,7 @@ ProcessExecutor::ProcessExecutor(QObject *parent) :
 void ProcessExecutor::execute()
 {
     using namespace ProjectExplorer;
-
     Project *project = ProjectTree::currentProject();
-
     const QString &buildDir = project->activeTarget()->activeBuildConfiguration()->buildDirectory().toString();
     const QString &objectFilesDir = getObjectFilesDir(buildDir);
 
